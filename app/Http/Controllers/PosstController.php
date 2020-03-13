@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePost;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class PosstController extends Controller
 {
@@ -88,8 +89,12 @@ class PosstController extends Controller
 
         $post->save();
         $request->session()->flash('status', 'Le post est Modifier avec succées');
-     return redirect()->route('posts.index');
+        return redirect()->route('posts.index');
     }
     
-    public function destroy($id){}
+    public function destroy(Request $request,$id){
+        Post::destroy($id);
+        $request->session()->flash('status', 'Le post est Supprimer avec succées');
+        return redirect()->route('posts.index');
+    }
 }
